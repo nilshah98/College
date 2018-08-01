@@ -1,0 +1,8 @@
+#!/bin/bash
+function simpleops {
+	echo enter two numbers
+	read a
+	read b
+	echo ($a + $b)
+}
+simpleops
