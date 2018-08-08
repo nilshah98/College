@@ -11,6 +11,7 @@ def parent_child():
 		status = os.wait()
 		print(status)
 		print("Child exit code: ", os.WEXITSTATUS(status[1]))
+		print os.read(syscall,100)
 	elif n==0:
 		print os.read(syscall,100)
 		os.write(syscall,'from child  process')
