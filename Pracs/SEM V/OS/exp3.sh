@@ -1,2 +1,2 @@
 #!/bin/bash
-echo $(finger)
+echo $(wc -l < /etc/passwd)
