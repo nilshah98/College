@@ -16,8 +16,8 @@ def final(process, queue, service, arrival):
 		wait += end[i] - arrival[i] - service[i]
 		print(end[i] - arrival[i] - service[i])
 		print("Normalised turnaround time for  ", i+1, " is")
-		avgTurn += (end[i] - arrival[i])/process
-		print((end[i] - arrival[i])/process)
+		avgTurn += (end[i] - arrival[i])/service[i]
+		print((end[i] - arrival[i])/service[i])
 	print("Average turnaround time-")
 	print(turn/process)
 	print("Average waiting time-")
