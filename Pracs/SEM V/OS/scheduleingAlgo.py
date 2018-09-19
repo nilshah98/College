@@ -9,15 +9,15 @@ def final(process, queue, service, arrival):
 		start.append(queue.index(i))
 		end.append(offset - queue[::-1].index(i))
 	for i in range(process):
-		print("Turnaround time for ",i+1," is")
+		#print("Turnaround time for ",i+1," is")
 		turn += end[i] - arrival[i]
-		print(end[i] - arrival[i])
-		print("Waiting time for ",i+1," is")
+		#print(end[i] - arrival[i])
+		#print("Waiting time for ",i+1," is")
 		wait += end[i] - arrival[i] - service[i]
-		print(end[i] - arrival[i] - service[i])
-		print("Normalised turnaround time for  ", i+1, " is")
+		#print(end[i] - arrival[i] - service[i])
+		#print("Normalised turnaround time for  ", i+1, " is")
 		avgTurn += (end[i] - arrival[i])/service[i]
-		print((end[i] - arrival[i])/service[i])
+		#print((end[i] - arrival[i])/service[i])
 	print("Average turnaround time-")
 	print(turn/process)
 	print("Average waiting time-")
@@ -128,8 +128,50 @@ print(*priorityQueue)
 final(numProcesses, priorityQueue, serviceTime, arrivalTime)
 
 
+# SRT preemptive
+srt = []
+for i in range(numProcesses):
+	srt.append([serviceTime[i],arrivalTime[i],i+1])
+srtQueue = []
+srtReady = []
+processLeft = numProcesses
+currTime = 0
+while processLeft > 0:
+	for i in srt:
+		if i[1] <= currTime and i not in srtReady and i[0] > 0:
+			srtReady.append(i)
+	srtReady.sort()
+	srtQueue.append(srtReady[0][2])
+	srt[srtQueue[-1]-1][0] -= 1
+	if srt[srtQueue[-1]-1][0] == 0:
+		processLeft -= 1
+	currTime += 1
+	srtReady = []
 
-print("Enter the time slice for the processor")
-timeSlice = int(input())
+print("Preemptive SRT Queue")
+print(*srtQueue)
+final(numProcesses, srtQueue, serviceTime, arrivalTime)
 
+# priority preemptive
+prio = []
+for i in range(numProcesses):
+	prio.append([priority[i],serviceTime[i],arrivalTime[i],i+1])
+prioQueue = []
+prioReady = []
+processLeft = numProcesses
+currTime = 0
+while processLeft > 0:
+	for i in prio:
+		if i[2] <= currTime and i not in prioReady and i[1]>0:
+			prioReady.append(i)
+	prioReady.sort()
+	prioQueue.append(prioReady[0][3])
+	prio[prioQueue[-1]-1][1] -= 1 
+	if prio[prioQueue[-1]-1][1] == 0:
+		processLeft -= 1
+	currTime += 1
+	prioReady = []
 
+print("Preemptive priorit")
+print(*prioQueue)
+final(numProcesses, prioQueue , serviceTime, arrivalTime)
