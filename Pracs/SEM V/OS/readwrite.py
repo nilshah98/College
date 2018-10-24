@@ -1,12 +1,15 @@
 import time
 import threading
 import random
+import datetime
 
 criticalSection = 0
 readcount = 0 
 
 readcountSem = 1
 writeSem = 1 
+
+testF = open("test.txt","w+")
 
 def semSignalX():
 	global writeSem 
@@ -35,6 +38,7 @@ def semSignalR():
 	return True
 	
 def reader():
+	global testF
 	global readcountSem
 	global writeSem
 	global readcount
@@ -46,7 +50,9 @@ def reader():
 				if(semWaitX()):	
 					print("Readers:", readcount)
 					semSignalR()
-					print("Reading now:", criticalSection)
+					testF = open("test.txt","r")
+					val = testF.read()
+					print("Reading: ",val)
 					if(semWaitR()):
 						readcount -= 1;
 						if(readcount == 0):
@@ -56,7 +62,9 @@ def reader():
 			elif(readcount > 1):
 				print("Readers:", readcount)
 				semSignalR()
-				print("Reading now:", criticalSection)
+				testF = open("test.txt","r")
+				val = testF.read()
+				print("Reading: ",val)
 				if(semWaitR()):
 					readcount -= 1
 					if(readcount == 0):
@@ -65,14 +73,17 @@ def reader():
 				time.sleep(1)
 
 def writer():
+	global testF
 	global readcountSem
 	global writeSem
 	global readcount
 	global criticalSection
 	while(True):
 		if(semWaitX()):
-			criticalSection = random.randint(0,100)
-			print("Writer writing:", criticalSection)
+			val = str(datetime.datetime.now())
+			testF = open("test.txt","w")
+			testF.write(val)
+			print("Writer: ",val)
 			semSignalX()
 			time.sleep(3)
 
