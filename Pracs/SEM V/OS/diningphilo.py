@@ -28,7 +28,6 @@ def waitForks(i):
 def signalForks(i):
     global forks
     forks[i] += 1
-    print(*forks)
     return True
 
 
