@@ -54,7 +54,7 @@ def reader():
 					val = testF.read()
 					print("Reading: ",val)
 					if(semWaitR()):
-						readcount -= 1;
+						readcount -= 1
 						if(readcount == 0):
 							semSignalX()
 						semSignalR()
