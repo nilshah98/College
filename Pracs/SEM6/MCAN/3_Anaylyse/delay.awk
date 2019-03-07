@@ -12,9 +12,9 @@ BEGIN {
 
     seqno = -1;    
 
-#    droppedPackets = 0; 
+    droppedPackets = 0; 
 
-#    receivedPackets = 0; 
+    receivedPackets = 0; 
 
     count = 0;
 
@@ -27,15 +27,15 @@ BEGIN {
           seqno = $6;
 
     } 
-#	else if(($4 == "AGT") && ($1 == "r")) {
+	else if(($4 == "AGT") && ($1 == "r")) {
 
-#            receivedPackets++;
+            receivedPackets++;
 
-#    } else if ($1 == "D" && $7 == "tcp" && $8 > 512){
+    } else if ($1 == "D" && $7 == "tcp" && $8 > 512){
 
-#            droppedPackets++;            
+            droppedPackets++;            
 
-#  } 
+  } 
 
     #end-to-end delay
 

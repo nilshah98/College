@@ -1,0 +1,3 @@
+sent_packets	 d
+received_packets 8365
+Average Throughput[kbps] = 466.92	 StartTime=1.00	 StopTime = 149.97

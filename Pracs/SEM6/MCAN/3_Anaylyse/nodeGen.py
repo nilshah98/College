@@ -1,5 +1,5 @@
 import random
-for i in range(50):
+for i in range(10):
 	nodeGenX = '$node_(' + str(i) + ')	set X_ ' + str(random.randint(1,450))
 	nodeGenY = '$node_(' + str(i) + ')	set Y_ ' + str(random.randint(1,450))
 	nodeGenZ = '$node_(' + str(i) + ')	set Z_ ' + str(0)
