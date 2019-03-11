@@ -1,4 +1,7 @@
 import copy
+
+goalState = [[0,1,2],[3,4,5],[6,7,8]]
+
 class Puzzle:
 	def __init__(self,puzzle,blankRow,blankCol):
 		self.puzzle = puzzle
@@ -56,6 +59,16 @@ def visited(stateSpace,temp):
 				return False
 	return True
 
+def check(stateSpace,temp):
+	for i in range(3):
+		for j in range(3):
+			if stateSpace[i][j] == temp[i][j]:
+				continue
+			else:
+				return False
+	return True
+
+
 def solve():
 	puzzle = [[0,0,0] for i in range(3)]
 	for i in range(3):
@@ -68,30 +81,96 @@ def solve():
 	blankRow = int(input())
 	blankCol = int(input())
 	Puzzlex = Puzzle(puzzle,blankRow,blankCol)
-	print(Puzzlex)
 
 	stateSpace = [Puzzlex]
 	initialState = [Puzzlex]
 	bfsQueue = [Puzzlex]
 
+	stateSpaceTree = [Puzzlex]
+
 	#up,down,left,right
-	tempPuzzle = Puzzle(copy.deepcopy(bfsQueue[0].puzzle),bfsQueue[0].blankRow,bfsQueue[0].blankCol)
-	if(tempPuzzle.moveup()):
-		bfsQueue.append(tempPuzzle)
+	while len(bfsQueue)>0:
+		
+		print()
 
-	tempPuzzlex = Puzzle(copy.deepcopy(bfsQueue[0].puzzle),bfsQueue[0].blankRow,bfsQueue[0].blankCol)
-	if(tempPuzzlex.movedown()):
-		bfsQueue.append(tempPuzzlex)
+		tempPuzzle = Puzzle(copy.deepcopy(bfsQueue[0].puzzle),bfsQueue[0].blankRow,bfsQueue[0].blankCol)
+		if(tempPuzzle.moveup()):
+			flag = False
+			for i in stateSpaceTree:
+				if(visited(i.puzzle, tempPuzzle.puzzle)):
+					flag = True
+					break
+			if(not flag):
+				bfsQueue.append(tempPuzzle)
+				stateSpaceTree.append(tempPuzzle)
+				print("moveup")
+				print(bfsQueue[0],end="===>\n")
+				print(tempPuzzle)
+				if(check(goalState,tempPuzzle.puzzle)):
+					print("goalStateFound")
+					break
 
-	tempPuzzley = Puzzle(copy.deepcopy(bfsQueue[0].puzzle),bfsQueue[0].blankRow,bfsQueue[0].blankCol)
-	if(tempPuzzley.moveleft()):
-		bfsQueue.append(tempPuzzley)
+		tempPuzzle = Puzzle(copy.deepcopy(bfsQueue[0].puzzle),bfsQueue[0].blankRow,bfsQueue[0].blankCol)
+		if(tempPuzzle.movedown()):
+			flag = False
+			for i in stateSpaceTree:
+				if(visited(i.puzzle, tempPuzzle.puzzle)):
+					flag = True
+					break
+			if(not flag):
+				bfsQueue.append(tempPuzzle)
+				stateSpaceTree.append(tempPuzzle)
+				print("movedown")
+				print(bfsQueue[0],end="===>\n")
+				print(tempPuzzle)
+				if(check(goalState,tempPuzzle.puzzle)):
+					print("goalStateFound")
+					break
 
-	tempPuzzlez = Puzzle(copy.deepcopy(bfsQueue[0].puzzle),bfsQueue[0].blankRow,bfsQueue[0].blankCol)
-	if(tempPuzzlez.moveright()):
-		bfsQueue.append(tempPuzzlez)
+		tempPuzzle = Puzzle(copy.deepcopy(bfsQueue[0].puzzle),bfsQueue[0].blankRow,bfsQueue[0].blankCol)
+		if(tempPuzzle.moveleft()):
+			flag = False
+			for i in stateSpaceTree:
+				if(visited(i.puzzle, tempPuzzle.puzzle)):
+					flag = True
+					break
+			if(not flag):
+				bfsQueue.append(tempPuzzle)
+				stateSpaceTree.append(tempPuzzle)
+				print("moveleft")
+				print(bfsQueue[0],end="===>\n")
+				print(tempPuzzle)
+				if(check(goalState,tempPuzzle.puzzle)):
+					print("goalStateFound")
+					break
 
-	for i in bfsQueue:
-		print(i)
+		tempPuzzle = Puzzle(copy.deepcopy(bfsQueue[0].puzzle),bfsQueue[0].blankRow,bfsQueue[0].blankCol)
+		if(tempPuzzle.moveright()):
+			flag = False
+			for i in stateSpaceTree:
+				if(visited(i.puzzle, tempPuzzle.puzzle)):
+					flag = True
+					break
+			if(not flag):
+				bfsQueue.append(tempPuzzle)
+				stateSpaceTree.append(tempPuzzle)
+				print("moveright")
+				print(bfsQueue[0],end="===>\n")
+				print(tempPuzzle)
+				if(check(goalState,tempPuzzle.puzzle)):
+					print("goalStateFound")
+					break
+		
+
+
+		bfsQueue = bfsQueue[1:]
+		print("------------------------------------")
+	# for i in bfsQueue:
+	# 	print(i)
+
+
+
+	# for i in stateSpaceTree:
+	# 	print(i)
 
 solve()
