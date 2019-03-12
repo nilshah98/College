@@ -1,10 +1,11 @@
-pkg load image
-a=imread('./martin-brechtl-1423370-unsplash.jpg');
+% pkg load image
+a=imread('./spiderman.jpg');
 b=rgb2gray(a);
 imshow(b);
 imwrite(b,'gray.bmp');
-x=rows(b);
-y=columns(b);
+% x=rows(b);
+% y=columns(b);
+[x,y]=size(b);
 r1=input('Enter r1: ');
 r2=input('Enter r2: ');
 

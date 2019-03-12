@@ -1,9 +1,10 @@
-pkg load image
-a=imread('./martin-brechtl-1423370-unsplash.jpg');
+% pkg load image
+a=imread('./spiderman.jpg');
 b=rgb2gray(a);
 imwrite(b,'gray.bmp');
-x=rows(b);
-y=columns(b);
+% x=rows(b);
+% y=columns(b);
+[x,y]=size(b);
 
 for i=1:x
   for j=1:y
@@ -15,5 +16,6 @@ end
 
 for i=1:8
   d=255 .* c(:,:,i);
-  imwrite(d,strcat("img",num2str(i),".bmp"));
+  imshow(d);
+  imwrite(d,strcat('img',num2str(i),'.bmp'));
 end

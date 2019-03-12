@@ -5,17 +5,17 @@ imwrite(b,'gray.bmp');
 % x=rows(b);
 % y=columns(b);
 [x,y]=size(b);
-%threshold
-t=input('Enter threshold: ');
+
 for i=1:x
   for j=1:y
-    if b(i,j)>=t
-      d(i,j)=255;
-     else
-      d(i,j)=0;
+    for k=1:8
+      c(i,j,k)=bitget(b(i,j),k);
     end
-  end;
-end;
+  end
+end
 
-imwrite(d,'threshold.bmp');
-imshow(d);
+for i=1:8
+
+  d=255 .* c(:,:,i);
+  imwrite(d,);
+end
