@@ -10,9 +10,13 @@ class Pair {
     }
 }
 class twopassmacro {
+    // macroName => line number
     static HashMap<String,Integer> mnt=new HashMap();
+    // lineNumber => content
     static HashMap<Integer,String> mdt = new HashMap();
+    // paramName => (val/ind, macroName)
     static HashMap<String,Pair> ala= new HashMap();
+    // index => paramName OR paramName => value
     static HashMap<String,String> ald= new HashMap();
     static ArrayList<String> pass2out=new ArrayList();
     static File file = null;
@@ -51,10 +55,15 @@ class twopassmacro {
         int c=0;
         String str="";
         while(lt<l) {
+            // reading one line, and storing count of words in c
+            // also storing the words in tokens
             c=read(lines[lt]);
 
+            // if the first token equals MACRO it is a MACRO definition
             if(tokens[0].equals("MACRO")) {
                 //System.out.println("1: "+lt);
+
+                // Reading next lines
                 int ind=1;
                 lt++;
                 str=lines[lt];
@@ -70,15 +79,27 @@ class twopassmacro {
                     String params[] = new String[10];
 
                     int i=0;
+
+                    // If number of words = 3, then shift i by 1
                     if(c==3) 
                         i=1;
+
                     //Insert into mnt
                     params=tokens[i+1].split(",");
+
+                    // fl == 1, means first line of macro def
                     if(fl==1) {
                         //System.out.println(tokens[i]+" "+(lt+1));
+
+                        // Macro name =>
                         name=tokens[i];
+
+                        // Insert macro name, along with line number (1 indexed) in MNT
                         mnt.put(tokens[i],(lt+1));
+
                         //Put parameters in ala and ald
+                        // Passing parameter array and macro name as parameters =>
+                        // Build ALA and ALD, param,(ind,macroName)
                         constructala(params,name);
 
                         //Check for keyword args
@@ -90,17 +111,23 @@ class twopassmacro {
                         content=reconstructmdt(name,content);
 
                     fl=0;
+
+                    // Insert line number, and the content of the line in MDT
                     mdt.put(lt,content);
                     
                     //End 
                     lt++;
                     c=read(lines[lt]);
                 }
+
+                // Insert MEND command in MDT
                 if(tokens[0].equals("MEND")) {
                     mdt.put(lt,lines[lt]);
                     lt++;
                 }
             }
+
+            // If not a MACRO definiton read as =>
             else {
                 //System.out.println("2: "+lt);
                 lt++;
@@ -119,7 +146,9 @@ class twopassmacro {
         String pass2op="";
         int c=0;
         String prev="";
+
         while(lt<l) {
+
             c=read(lines[lt]);
             int i=0;
             if(c==3)
@@ -131,6 +160,7 @@ class twopassmacro {
                 int ind=1;
 
                 //Reconstruct ald
+                // Earlier holding temporary values replace now
                 String[] params=tokens[i+1].split(",");
                 if(tokens[i+1].contains("=")) {
                     for(String s10:params) {
@@ -153,6 +183,7 @@ class twopassmacro {
                     if(c==3)
                         i=1;
 
+                    // Replace param with passed value and store in MDT
                     for(String s9:ald.keySet()) {
                         if(mdl.contains(s9))
                             mdl=mdl.replaceAll(s9,ald.get(s9));
@@ -191,6 +222,7 @@ class twopassmacro {
         return val;
     }
 
+    // passing parameter array and the name of the macro
     public static void constructala(String[] params,String name) {
         //mnt.put(name,index);
         int ind=1;
@@ -203,12 +235,15 @@ class twopassmacro {
                     ald.put(valeq[0],valeq[1]);
                 }
                 else {
+
+                    // Insert parameter name, and linked with <val,macroName>
                     ala.put(valeq[0],new Pair("null",name));
                     ald.put(valeq[0],"null");
                 }
             }
+
             else {
-                //Positional parameters
+                //Positional parameters,store along with parameter number
                 ala.put(s2,new Pair(("#"+ind),name));
                 ald.put("#"+ind,s2);
                 ind++;
@@ -216,6 +251,7 @@ class twopassmacro {
         }
     }
 
+    // returns number of words/commands in a line ie. separated by space.
     public static int read(String str) {
         //String str = lines[lt];
         int c=0;
@@ -239,7 +275,10 @@ class twopassmacro {
         }
     }
 
+
+// Printing from MNT and MDT
     public static void pass1op() {
+
         System.out.println("** Input Code **");
         for(String s1:lines) {
             if(s1!=null)
@@ -247,6 +286,7 @@ class twopassmacro {
         }
 
         System.out.println("\n** MNT **");
+
         System.out.println("Macro Name.\tLine No.");
         for(String str1:mnt.keySet())
             System.out.println(str1+"\t\t"+mnt.get(str1));
