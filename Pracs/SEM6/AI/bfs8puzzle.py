@@ -2,12 +2,29 @@ import copy
 
 goalState = [[0,1,2],[3,4,5],[6,7,8]]
 
+# ======================= UTILITY FUNCTIONS ===========================
+
+# Check whether 2 matrix same
+def check(stateSpace,temp):
+	for i in range(3):
+		for j in range(3):
+			if stateSpace[i][j] == temp[i][j]:
+				continue
+			else:
+				return False
+	return True
+
+# ======================= PUZZLE CLASS ===========================
+
 class Puzzle:
+
+	# Initialise puzzle
 	def __init__(self,puzzle,blankRow,blankCol):
 		self.puzzle = puzzle
 		self.blankRow = blankRow
 		self.blankCol = blankCol
 
+	# Print puzzle
 	def __str__(self):
 		printString = ""
 		for i in range(3):
@@ -18,6 +35,7 @@ class Puzzle:
 		return printString
 
 
+	# Move blank piece up
 	def moveup(self):
 		if self.blankRow ==0:
 			return False
@@ -26,6 +44,7 @@ class Puzzle:
 			self.blankRow -= 1
 			return True
 
+	# Move blank piece down
 	def movedown(self):
 		if self.blankRow == 2:
 			return False
@@ -34,6 +53,7 @@ class Puzzle:
 			self.blankRow += 1
 			return True
 
+	# Move blank piece left
 	def moveleft(self):
 		if self.blankCol == 0:
 			return False
@@ -42,6 +62,7 @@ class Puzzle:
 			self.blankCol -= 1
 			return True
 
+	# Move blank piece right
 	def moveright(self):
 		if self.blankCol == 2:
 			return False
@@ -50,31 +71,15 @@ class Puzzle:
 			self.blankCol += 1
 			return True
 
-def visited(stateSpace,temp):
-	for i in range(3):
-		for j in range(3):
-			if stateSpace[i][j] == temp[i][j]:
-				continue
-			else:
-				return False
-	return True
 
-def check(stateSpace,temp):
-	for i in range(3):
-		for j in range(3):
-			if stateSpace[i][j] == temp[i][j]:
-				continue
-			else:
-				return False
-	return True
-
+# =================== DRIVER FUNCTION =================================
 
 def solve():
 	puzzle = [[0,0,0] for i in range(3)]
 	for i in range(3):
 		for j in range(3):
 			print("Enter values for "+str(i)+" row")
-			print("Enter values for "+str(j)+"col")
+			print("Enter values for "+str(j)+" col")
 			puzzle[i][j] = int(input())
 
 	print("Enter location of blank space")
@@ -83,7 +88,6 @@ def solve():
 	Puzzlex = Puzzle(puzzle,blankRow,blankCol)
 
 	stateSpace = [Puzzlex]
-	initialState = [Puzzlex]
 	bfsQueue = [Puzzlex]
 
 	stateSpaceTree = [Puzzlex]
@@ -92,19 +96,19 @@ def solve():
 	while len(bfsQueue)>0:
 		
 		print()
-
+		print(bfsQueue[0],end="===>\n")
+		
 		tempPuzzle = Puzzle(copy.deepcopy(bfsQueue[0].puzzle),bfsQueue[0].blankRow,bfsQueue[0].blankCol)
 		if(tempPuzzle.moveup()):
 			flag = False
 			for i in stateSpaceTree:
-				if(visited(i.puzzle, tempPuzzle.puzzle)):
+				if(check(i.puzzle, tempPuzzle.puzzle)):
 					flag = True
 					break
 			if(not flag):
 				bfsQueue.append(tempPuzzle)
 				stateSpaceTree.append(tempPuzzle)
 				print("moveup")
-				print(bfsQueue[0],end="===>\n")
 				print(tempPuzzle)
 				if(check(goalState,tempPuzzle.puzzle)):
 					print("goalStateFound")
@@ -114,14 +118,13 @@ def solve():
 		if(tempPuzzle.movedown()):
 			flag = False
 			for i in stateSpaceTree:
-				if(visited(i.puzzle, tempPuzzle.puzzle)):
+				if(check(i.puzzle, tempPuzzle.puzzle)):
 					flag = True
 					break
 			if(not flag):
 				bfsQueue.append(tempPuzzle)
 				stateSpaceTree.append(tempPuzzle)
 				print("movedown")
-				print(bfsQueue[0],end="===>\n")
 				print(tempPuzzle)
 				if(check(goalState,tempPuzzle.puzzle)):
 					print("goalStateFound")
@@ -131,14 +134,13 @@ def solve():
 		if(tempPuzzle.moveleft()):
 			flag = False
 			for i in stateSpaceTree:
-				if(visited(i.puzzle, tempPuzzle.puzzle)):
+				if(check(i.puzzle, tempPuzzle.puzzle)):
 					flag = True
 					break
 			if(not flag):
 				bfsQueue.append(tempPuzzle)
 				stateSpaceTree.append(tempPuzzle)
 				print("moveleft")
-				print(bfsQueue[0],end="===>\n")
 				print(tempPuzzle)
 				if(check(goalState,tempPuzzle.puzzle)):
 					print("goalStateFound")
@@ -148,29 +150,19 @@ def solve():
 		if(tempPuzzle.moveright()):
 			flag = False
 			for i in stateSpaceTree:
-				if(visited(i.puzzle, tempPuzzle.puzzle)):
+				if(check(i.puzzle, tempPuzzle.puzzle)):
 					flag = True
 					break
 			if(not flag):
 				bfsQueue.append(tempPuzzle)
 				stateSpaceTree.append(tempPuzzle)
 				print("moveright")
-				print(bfsQueue[0],end="===>\n")
 				print(tempPuzzle)
 				if(check(goalState,tempPuzzle.puzzle)):
 					print("goalStateFound")
 					break
 		
-
-
 		bfsQueue = bfsQueue[1:]
 		print("------------------------------------")
-	# for i in bfsQueue:
-	# 	print(i)
-
-
-
-	# for i in stateSpaceTree:
-	# 	print(i)
 
 solve()

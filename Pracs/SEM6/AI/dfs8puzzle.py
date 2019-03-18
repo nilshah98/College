@@ -74,7 +74,7 @@ def solve():
 	for i in range(3):
 		for j in range(3):
 			print("Enter values for "+str(i)+" row")
-			print("Enter values for "+str(j)+"col")
+			print("Enter values for "+str(j)+" col")
 			puzzle[i][j] = int(input())
 
 	print("Enter location of blank space")
@@ -104,7 +104,7 @@ def solve():
 				dfsStack.append(tempPuzzle)
 				stateSpaceTree.append(tempPuzzle)
 				print("moveup")
-				print(dfsStack[0],end="===>\n")
+				print(dfsStack[-2],end="===>\n")
 				print(tempPuzzle)
 				if(check(goalState,tempPuzzle.puzzle)):
 					print("goalStateFound")
@@ -121,7 +121,7 @@ def solve():
 				dfsStack.append(tempPuzzle)
 				stateSpaceTree.append(tempPuzzle)
 				print("movedown")
-				print(dfsStack[0],end="===>\n")
+				print(dfsStack[-2],end="===>\n")
 				print(tempPuzzle)
 				if(check(goalState,tempPuzzle.puzzle)):
 					print("goalStateFound")
@@ -138,7 +138,7 @@ def solve():
 				dfsStack.append(tempPuzzle)
 				stateSpaceTree.append(tempPuzzle)
 				print("moveleft")
-				print(dfsStack[0],end="===>\n")
+				print(dfsStack[-2],end="===>\n")
 				print(tempPuzzle)
 				if(check(goalState,tempPuzzle.puzzle)):
 					print("goalStateFound")
@@ -155,7 +155,7 @@ def solve():
 				dfsStack.append(tempPuzzle)
 				stateSpaceTree.append(tempPuzzle)
 				print("moveright")
-				print(dfsStack[0],end="===>\n")
+				print(dfsStack[-2],end="===>\n")
 				print(tempPuzzle)
 				if(check(goalState,tempPuzzle.puzzle)):
 					print("goalStateFound")
@@ -163,8 +163,8 @@ def solve():
 		
 
 
-		dfsStack.pop()
-		print("------------------------------------")
+	dfsStack.pop()
+	print("------------------------------------")
 	# for i in dfsStack:
 	# 	print(i)
 
