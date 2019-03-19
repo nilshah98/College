@@ -12,6 +12,7 @@ imshow(grayImage);
 % 1 row and 256 columns =>
 pixelCount = zeros(1,256);
 
+
 for i=1:w
     for j=1:h
         % Since arrays are one indexed =>
@@ -21,6 +22,8 @@ end
 
 
 totalPixels = sum(pixelCount);
+originalPixel = zeros(1, totalPixels);
+finalPixel = zeros(1, totalPixels);
 pdf = pixelCount(1,:)./totalPixels;
 cdf = zeros(1,256);
 
@@ -37,16 +40,19 @@ colorMap = round(cdf(1,:)*255);
 equalisedImage = zeros(w,h);
 equalisedHist = zeros(1,256);
 
+
 for i=1:w
     for j=1:h
         equalisedImage(i,j) = colorMap(1, grayImage(i,j)+1);
         equalisedHist(1,equalisedImage(i,j)+1) = equalisedHist(1,equalisedImage(i,j)+1) + 1;
+        finalPixel(1,(i*j)+j) = colorMap(1, grayImage(i,j)+1);
+        originalPixel(1,(i*j)+j) = grayImage(i,j);
     end
 end
 
 
 subplot(3,2,1);
-plot(pixelCount);
+hist(double(grayImage(:)));
 xlabel('pixelCount')
 subplot(3,2,2);
 plot(imhist(grayImage));
