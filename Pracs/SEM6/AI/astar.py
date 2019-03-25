@@ -31,12 +31,13 @@ def check(stateSpace, temp):
 class Puzzle:
 
 	# Initialise puzzle
-	def __init__(self, puzzle, blankRow, blankCol):
+	def __init__(self, puzzle, blankRow, blankCol, level):
 		self.puzzle = puzzle
 		self.blankRow = blankRow
 		self.blankCol = blankCol
+		self.normCost = 0
 		self.manhattan = 0
-		self.level = 0
+		self.level = level
 
 	# Print puzzle
 	def __str__(self):
@@ -46,7 +47,9 @@ class Puzzle:
 				printString += str(self.puzzle[i][j])
 				printString += " | "
 			printString += "\n"
-		printString += str(self.manhattan)
+		printString += "Manhattan Cost : " + str(self.manhattan) + "\n"
+		printString += "Normal Cost : " + str(self.normCost) + "\n"
+		printString += "Level : " + str(self.level) + "\n"
 		return printString
 
 	def calcManhattan(self):
@@ -57,9 +60,17 @@ class Puzzle:
 				cost += abs(goalDict[val][0] - i)
 				cost += abs(goalDict[val][1] - j)
 		self.manhattan = cost
+	
+	def calcNormCost(self):
+		cost = 0
+		for i in range(3):
+			for j in range(3):
+				val = self.puzzle[i][j]
+				if(goalState[i][j] != val):
+					cost += 1
+		self.normCost = cost
 
 	# Move blank piece up
-
 	def moveup(self):
 		if self.blankRow == 0:
 			return False
@@ -106,27 +117,28 @@ def solve():
 	puzzle = [[0,0,0] for i in range(3)]
 	for i in range(3):
 		for j in range(3):
-			print("Enter values for "+str(i)+" row")
-			print("Enter values for "+str(j)+" col")
+			print("Enter values for row:"+str(i)+" col:" + str(j))
 			puzzle[i][j] = int(input())
 
 	print("Enter location of blank space")
 	blankRow = int(input())
 	blankCol = int(input())
-	Puzzlex = Puzzle(puzzle,blankRow,blankCol)
+	Puzzlex = Puzzle(puzzle,blankRow,blankCol,0)
 
-	stateSpace = [Puzzlex]
 	bfsQueue = [Puzzlex]
 
 	stateSpaceTree = [Puzzlex]
+	goal = "notfound"
 
 	# up,down,left,right
-	for i in range(1):
+	while goal == "notfound":
 		
 		print()
-		print(bfsQueue[0],end="===>\n")
 		
-		tempPuzzle = Puzzle(copy.deepcopy(bfsQueue[0].puzzle),bfsQueue[0].blankRow,bfsQueue[0].blankCol)
+		# Next puzzle to be expanded =>
+		print(bfsQueue[0],end="==========================>\n\n")
+		
+		tempPuzzle = Puzzle(copy.deepcopy(bfsQueue[0].puzzle),bfsQueue[0].blankRow,bfsQueue[0].blankCol,bfsQueue[0].level)
 		if(tempPuzzle.moveup()):
 			flag = False
 			for i in stateSpaceTree:
@@ -135,15 +147,17 @@ def solve():
 					break
 			if(not flag):
 				tempPuzzle.calcManhattan()
+				tempPuzzle.calcNormCost()
 				bfsQueue.append(tempPuzzle)
 				stateSpaceTree.append(tempPuzzle)
 				print("moveup")
 				print(tempPuzzle)
 				if(check(goalState,tempPuzzle.puzzle)):
 					print("goalStateFound")
+					goal = "found"
 					break
 
-		tempPuzzle = Puzzle(copy.deepcopy(bfsQueue[0].puzzle),bfsQueue[0].blankRow,bfsQueue[0].blankCol)
+		tempPuzzle = Puzzle(copy.deepcopy(bfsQueue[0].puzzle),bfsQueue[0].blankRow,bfsQueue[0].blankCol,bfsQueue[0].level)
 		if(tempPuzzle.movedown()):
 			flag = False
 			for i in stateSpaceTree:
@@ -152,15 +166,17 @@ def solve():
 					break
 			if(not flag):
 				tempPuzzle.calcManhattan()
+				tempPuzzle.calcNormCost()
 				bfsQueue.append(tempPuzzle)
 				stateSpaceTree.append(tempPuzzle)
 				print("movedown")
 				print(tempPuzzle)
 				if(check(goalState,tempPuzzle.puzzle)):
 					print("goalStateFound")
+					goal = "found"
 					break
 
-		tempPuzzle = Puzzle(copy.deepcopy(bfsQueue[0].puzzle),bfsQueue[0].blankRow,bfsQueue[0].blankCol)
+		tempPuzzle = Puzzle(copy.deepcopy(bfsQueue[0].puzzle),bfsQueue[0].blankRow,bfsQueue[0].blankCol,bfsQueue[0].level)
 		if(tempPuzzle.moveleft()):
 			flag = False
 			for i in stateSpaceTree:
@@ -169,31 +185,38 @@ def solve():
 					break
 			if(not flag):
 				tempPuzzle.calcManhattan()
+				tempPuzzle.calcNormCost()
 				bfsQueue.append(tempPuzzle)
 				stateSpaceTree.append(tempPuzzle)
 				print("moveleft")
 				print(tempPuzzle)
 				if(check(goalState,tempPuzzle.puzzle)):
 					print("goalStateFound")
+					goal = "found"
 					break
 
-		tempPuzzle = Puzzle(copy.deepcopy(bfsQueue[0].puzzle),bfsQueue[0].blankRow,bfsQueue[0].blankCol)
+		tempPuzzle = Puzzle(copy.deepcopy(bfsQueue[0].puzzle),bfsQueue[0].blankRow,bfsQueue[0].blankCol,bfsQueue[0].level)
+		print(tempPuzzle.level)
 		if(tempPuzzle.moveright()):
 			flag = False
+			print(tempPuzzle.level)
 			for i in stateSpaceTree:
 				if(check(i.puzzle, tempPuzzle.puzzle)):
 					flag = True
 					break
 			if(not flag):
 				tempPuzzle.calcManhattan()
+				tempPuzzle.calcNormCost()
 				bfsQueue.append(tempPuzzle)
 				stateSpaceTree.append(tempPuzzle)
 				print("moveright")
 				print(tempPuzzle)
 				if(check(goalState,tempPuzzle.puzzle)):
 					print("goalStateFound")
+					goal = "found"
 					break
 		
+		# Removing the traversed state from queue
 		bfsQueue = bfsQueue[1:]
 		print("------------------------------------")
 
