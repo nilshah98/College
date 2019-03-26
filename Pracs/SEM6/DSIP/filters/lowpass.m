@@ -18,6 +18,8 @@ xlabel("salt & pepper");
 
 lowpassmatrix = [1/9 1/9 1/9 ; 1/9 1/9 1/9 ; 1/9 1/9 1/9];
 highpassmatrix = [-1/9 -1/9 -1/9; -1/9 8/9 -1/9; -1/9 -1/9 -1/9];
+highboostmatrix = [-1/9 -1/9 -1/9; -1/9 8.9/9 -1/9; -1/9 -1/9 -1/9];
+
 [w,h] = size(img);
 disp([w,h]);
 img = double(img);
@@ -32,6 +34,7 @@ for i=1:w-2
         % disp(c);
         imgLPF(i+1,j+1) = round(sum(sum(imgGaus(i:i+2,j:j+2).*lowpassmatrix)));
         imgHPF(i+1,j+1) = round(sum(sum(img(i:i+2,j:j+2).*highpassmatrix)));
+        imgHBF(i+1,j+1) = round(sum(sum(img(i:i+2,j:j+2).*highpassmatrix)));
         temp = imgSnP(i:i+2,j:j+2);
         imgMed(i+1,j+1) = median(temp(:));
     end;
@@ -47,3 +50,6 @@ xlabel("High pass");
 subplot(3,2,6);
 imshow(uint8(imgMed));
 xlabel("Median pass");
+subplot(3,2,1);
+imshow(uint8(imgHBF));
+xlabel("High boost filter");
