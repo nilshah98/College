@@ -1,0 +1,122 @@
+<?xml version="1.0"?>
+
+<!-- generated on 28-03-2019 22:02:17 by SUMO gui Version 0.12.3
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumo-gui.exeConfiguration.xsd">
+
+    <input>
+        <net-file value="C:\Users\Student\Documents\105map.net.xml"/>
+        <route-files value="C:\Users\Student\Documents\105rou.rou.xml"/>
+    </input>
+
+    <output>
+        <netstate-dump value="C:\Users\Student\Documents\105sumo.sumo.tr"/>
+        <emissions-output value="C:\Users\Student\Documents\output-emissions.xml"/>
+        <tripinfo-output value="C:\Users\Student\Documents\output-tripinfos.xml"/>
+        <vehroute-output value="C:\Users\Student\Documents\output-vehroutes.xml"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+        <end value="1000"/>
+    </time>
+
+    <processing>
+        <route-steps value="-1"/>
+        <time-to-teleport value="-1"/>
+    </processing>
+
+    <report>
+        <print-options value="false"/>
+    </report>
+
+    <random_number>
+        <srand value="23423"/>
+    </random_number>
+
+    <gui_only>
+        <gui-settings-file value=""/>
+    </gui_only>
+
+</configuration>
+-->
+
+<routes>
+    <vehicle id="F0_0" depart="0.00" arrival="244.00">
+        <route edges="R01 D14 R45 U52 L21 D14 R45 L54 U41 L10 R01 D14 R45 U52 L21 D14 R45 U52 D25 L54 L43 U30 R01 D14 R45 L54 R45 L54 L43"/>
+    </vehicle>
+
+    <vehicle id="F1_0" depart="0.00" arrival="248.00">
+        <route edges="R34 U41 R12 D25 L54 L43 U30 D03 R34 U41 L10 D03 R34 U41 D14 R45 U52 L21 D14 R45 L54 U41 L10 R01 D14 R45 L54 R45 U52"/>
+    </vehicle>
+
+    <vehicle id="F0_1" depart="40.00" arrival="282.00">
+        <route edges="R01 D14 R45 U52 D25 L54 L43 U30 R01 D14 R45 L54 U41 R12 L21 D14 R45 U52 D25 L54 U41 R12 D25 U52 L21 L10 D03 U30 R01"/>
+    </vehicle>
+
+    <vehicle id="F1_1" depart="40.00" arrival="318.00">
+        <route edges="R34 U41 L10 D03 U30 D03 R34 U41 D14 R45 U52 L21 R12 L21 R12 D25 L54 L43 U30 D03 U30 D03 R34 U41 L10 R01 D14 R45 L54"/>
+    </vehicle>
+
+    <vehicle id="F0_3" depart="120.00" arrival="364.00">
+        <route edges="R01 D14 R45 U52 L21 L10 D03 R34 U41 L10 D03 U30 R01 D14 R45 L54 U41 R12 D25 L54 U41 D14 R45 U52 D25 L54 U41 R12 L21"/>
+    </vehicle>
+
+    <vehicle id="F1_3" depart="120.00" arrival="374.00">
+        <route edges="R34 U41 D14 R45 L54 L43 U30 D03 R34 U41 L10 R01 D14 R45 U52 D25 L54 L43 R34 U41 L10 D03 U30 R01 D14 R45 U52 D25 L54"/>
+    </vehicle>
+
+    <vehicle id="F0_2" depart="80.00" arrival="379.00">
+        <route edges="R01 D14 R45 L54 U41 L10 D03 U30 R01 D14 R45 U52 D25 U52 D25 L54 R45 U52 D25 L54 L43 U30 R01 D14 R45 L54 U41 D14 R45"/>
+    </vehicle>
+
+    <vehicle id="F1_2" depart="80.00" arrival="380.00">
+        <route edges="R34 U41 D14 R45 U52 D25 U52 L21 R12 D25 L54 L43 U30 R01 D14 R45 L54 U41 L10 R01 D14 R45 L54 R45 U52 D25 L54 R45 L54"/>
+    </vehicle>
+
+    <vehicle id="F1_5" depart="200.00" arrival="458.00">
+        <route edges="R34 U41 D14 R45 U52 D25 U52 L21 L10 D03 R34 U41 L10 R01 D14 R45 U52 D25 U52 D25 L54 L43 U30 D03 R34 U41 L10 D03 R34"/>
+    </vehicle>
+
+    <vehicle id="F0_4" depart="160.00" arrival="458.00">
+        <route edges="R01 D14 R45 L54 U41 D14 R45 U52 L21 L10 D03 R34 U41 D14 R45 L54 L43 U30 R01 D14 R45 U52 L21 R12 D25 L54 U41 R12 L21"/>
+    </vehicle>
+
+    <vehicle id="F1_4" depart="160.00" arrival="516.00">
+        <route edges="R34 U41 L10 D03 R34 U41 L10 D03 R34 U41 D14 R45 U52 L21 D14 R45 U52 D25 U52 D25 L54 R45 L54 U41 L10 R01 D14 R45 L54"/>
+    </vehicle>
+
+    <vehicle id="F0_5" depart="200.00" arrival="523.00">
+        <route edges="R01 D14 R45 U52 L21 L10 D03 U30 D03 U30 R01 D14 R45 U52 L21 R12 L21 D14 R45 U52 D25 U52 D25 U52 L21 D14 R45 L54 L43"/>
+    </vehicle>
+
+    <vehicle id="F0_6" depart="240.00" arrival="535.00">
+        <route edges="R01 D14 R45 L54 L43 R34 U41 R12 L21 D14 R45 U52 L21 R12 D25 L54 U41 R12 L21 R12 L21 R12 L21 D14 R45 L54 U41 L10 R01"/>
+    </vehicle>
+
+    <vehicle id="F1_6" depart="240.00" arrival="566.00">
+        <route edges="R34 U41 L10 R01 D14 R45 U52 L21 D14 R45 U52 L21 L10 R01 D14 R45 L54 L43 U30 R01 D14 R45 U52 L21 D14 R45 U52 L21 D14"/>
+    </vehicle>
+
+    <vehicle id="F0_8" depart="320.00" arrival="611.00">
+        <route edges="R01 D14 R45 U52 D25 L54 U41 L10 R01 D14 R45 U52 D25 U52 D25 L54 R45 L54 U41 R12 L21 R12 L21 R12 L21 R12 D25 U52 D25"/>
+    </vehicle>
+
+    <vehicle id="F1_7" depart="280.00" arrival="636.00">
+        <route edges="R34 U41 L10 R01 D14 R45 U52 D25 L54 R45 U52 L21 D14 R45 U52 L21 L10 R01 D14 R45 U52 D25 U52 L21 D14 R45 U52 L21 R12"/>
+    </vehicle>
+
+    <vehicle id="F1_8" depart="320.00" arrival="642.00">
+        <route edges="R34 U41 D14 R45 U52 D25 L54 L43 U30 D03 R34 U41 L10 R01 D14 R45 U52 D25 U52 L21 L10 D03 R34 U41 L10 R01 D14 R45 L54"/>
+    </vehicle>
+
+    <vehicle id="F0_7" depart="280.00" arrival="671.00">
+        <route edges="R01 D14 R45 U52 L21 L10 R01 D14 R45 L54 U41 R12 D25 U52 L21 R12 D25 L54 U41 D14 R45 L54 L43 R34 U41 D14 R45 L54 L43"/>
+    </vehicle>
+
+    <vehicle id="F1_9" depart="360.00" arrival="677.00">
+        <route edges="R34 U41 L10 D03 U30 D03 U30 D03 R34 U41 L10 D03 R34 U41 L10 R01 D14 R45 U52 D25 L54 L43 R34 U41 L10 D03 R34 U41 L10"/>
+    </vehicle>
+
+    <vehicle id="F0_10" 
