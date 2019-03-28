@@ -13,4 +13,5 @@
 <edge id="D03" fromnode="n0" tonode="n3" priority="75" nolanes="2" speed="40"/>
 <edge id="D14" fromnode="n1" tonode="n4" priority="75" nolanes="2" speed="40"/>
 <edge id="D25" fromnode="n2" tonode="n5" priority="75" nolanes="2" speed="40"/>
+<edge id="D04" fromnode="n0" tonode="n4" priority="75" nolanes="2" speed="40"/>
 </edges>
