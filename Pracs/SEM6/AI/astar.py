@@ -35,6 +35,7 @@ class Puzzle:
 		self.puzzle = puzzle
 		self.blankRow = blankRow
 		self.blankCol = blankCol
+		self.normCost = 0
 		self.manhattan = 0
 		self.level = 0
 
@@ -46,7 +47,9 @@ class Puzzle:
 				printString += str(self.puzzle[i][j])
 				printString += " | "
 			printString += "\n"
-		printString += str(self.manhattan)
+		printString += "Manhattan Cost : " + str(self.manhattan) + "\n"
+		printString += "Normal Cost : " + str(self.normCost) + "\n"
+		printString += "Level : " + str(self.level) + "\n"
 		return printString
 
 	def calcManhattan(self):
@@ -57,9 +60,17 @@ class Puzzle:
 				cost += abs(goalDict[val][0] - i)
 				cost += abs(goalDict[val][1] - j)
 		self.manhattan = cost
+	
+	def calcNormCost(self):
+		cost = 0
+		for i in range(3):
+			for j in range(3):
+				val = self.puzzle[i][j]
+				if(goalState[i][j] != val):
+					cost += 1
+		self.normCost = cost
 
 	# Move blank piece up
-
 	def moveup(self):
 		if self.blankRow == 0:
 			return False
@@ -106,8 +117,7 @@ def solve():
 	puzzle = [[0,0,0] for i in range(3)]
 	for i in range(3):
 		for j in range(3):
-			print("Enter values for "+str(i)+" row")
-			print("Enter values for "+str(j)+" col")
+			print("Enter values for row:"+str(i)+" col:" + str(j))
 			puzzle[i][j] = int(input())
 
 	print("Enter location of blank space")
@@ -115,7 +125,6 @@ def solve():
 	blankCol = int(input())
 	Puzzlex = Puzzle(puzzle,blankRow,blankCol)
 
-	stateSpace = [Puzzlex]
 	bfsQueue = [Puzzlex]
 
 	stateSpaceTree = [Puzzlex]
@@ -124,7 +133,9 @@ def solve():
 	for i in range(1):
 		
 		print()
-		print(bfsQueue[0],end="===>\n")
+		
+		# Next puzzle to be expanded =>
+		print(bfsQueue[0],end="==========================>\n\n")
 		
 		tempPuzzle = Puzzle(copy.deepcopy(bfsQueue[0].puzzle),bfsQueue[0].blankRow,bfsQueue[0].blankCol)
 		if(tempPuzzle.moveup()):
@@ -135,6 +146,7 @@ def solve():
 					break
 			if(not flag):
 				tempPuzzle.calcManhattan()
+				tempPuzzle.calcNormCost()
 				bfsQueue.append(tempPuzzle)
 				stateSpaceTree.append(tempPuzzle)
 				print("moveup")
@@ -152,6 +164,7 @@ def solve():
 					break
 			if(not flag):
 				tempPuzzle.calcManhattan()
+				tempPuzzle.calcNormCost()
 				bfsQueue.append(tempPuzzle)
 				stateSpaceTree.append(tempPuzzle)
 				print("movedown")
@@ -169,6 +182,7 @@ def solve():
 					break
 			if(not flag):
 				tempPuzzle.calcManhattan()
+				tempPuzzle.calcNormCost()
 				bfsQueue.append(tempPuzzle)
 				stateSpaceTree.append(tempPuzzle)
 				print("moveleft")
@@ -186,6 +200,7 @@ def solve():
 					break
 			if(not flag):
 				tempPuzzle.calcManhattan()
+				tempPuzzle.calcNormCost()
 				bfsQueue.append(tempPuzzle)
 				stateSpaceTree.append(tempPuzzle)
 				print("moveright")
@@ -194,6 +209,7 @@ def solve():
 					print("goalStateFound")
 					break
 		
+		# Removing the traversed state from queue
 		bfsQueue = bfsQueue[1:]
 		print("------------------------------------")
 
