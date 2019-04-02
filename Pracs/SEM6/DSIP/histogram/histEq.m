@@ -5,7 +5,7 @@ clc;
 
 % use imhist to verify histogram created and histeq to equalise an image
 
-image = imread('./babyincradle.png');
+image = imread('img.jpg');
 grayImage = (image);
 [w,h] = size(grayImage);
 imshow(grayImage);
