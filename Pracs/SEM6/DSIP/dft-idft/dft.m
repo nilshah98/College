@@ -1,3 +1,5 @@
+clc;
+clear;
 x = [1;2;3;4];
 
 [N,t] = size(x);
