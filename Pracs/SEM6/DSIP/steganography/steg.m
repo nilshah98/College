@@ -6,7 +6,7 @@ a=imread('./taj.bmp');
 
 message = 'State a secret message ';
 secret = input(message,'s');
-secString = dec2bin(secret)-'0'
+secString = dec2bin(secret)-'0';
 l = 1;
 p = 1;
 [row,col] = size(secString);
