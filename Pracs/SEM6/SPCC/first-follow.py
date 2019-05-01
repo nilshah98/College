@@ -10,7 +10,7 @@ D -> d
 
 grammar = {
 "S" : ["aFC","AD","cFD"],
-"A" : ["pD","Cc"],
+"A" : ["pD","Cc","~"],
 "F" : ["bC","b"],
 "C" : ["e","fD","~"],
 "D" : ["d"]
@@ -23,63 +23,65 @@ first = {}
 follow = {}
 
 def getFirst(sym):
+    # If symbol is non terminal then find it's first
     if sym in nonTerm:
+        # Check if first for the symbol has been already calculated
         if sym in first.keys():
-            return first[sym]
+            return first[sym][:]
         else:
+            # Else, get the grammar for the said language
             gram = grammar[sym]
             frt = []
+            # Loop through each expression and get their first
             for expr in gram:
                 ind = 0
                 val = getFirst(expr[ind])
-                for i in val:
-                    if i == "~":
-                        ind += 1
-                        if ind < len(expr):
-                            val = getFirst(expr[ind])
+
+                # while "~" is being found, go on removing it and checking next index
+                while "~" in val:
+                    val.remove("~")
+                    ind += 1
+                    if ind < len(expr):
+                        val += getFirst(expr[ind])
                     else:
-                        frt.append(i)
-            first[sym] = list(set(frt))
-            return first[sym]
+                        frt.append("~")
+
+                frt += val
+            first[sym] = list(set(frt[:]))
+            return first[sym][:]
     else:
-        return [sym]
+        return [sym][:]
 
 for i in nonTerm:
     getFirst(i)
 
 def getFollow(sym):
-    if sym == "S":
-        follow[sym] = ["$"]
-        return follow[sym]
+    flw = []
     for key in grammar.keys():
         for expr in grammar[key]:
             if sym in expr:
                 ind = expr.index(sym)
                 if ind+1 == len(expr):
-                    if sym in follow.keys():
-                        for i in getFollow(key):
-                            follow[sym].append(i)
-                    else:
-                        follow[sym] = getFollow(key)[:]
+                    flw += (getFollow(key))
                 else:
-                    if sym in follow.keys():
-                        if expr[ind+1] in nonTerm:
-                            for i in first[expr[ind+1]]:
-                                follow[sym].append(i)
-                        else:
-                            follow[sym].append(expr[ind+1])
-                    else:
-                        if expr[ind+1] in nonTerm:
-                            follow[sym] = first[expr[ind+1]][:]
-                        else:
-                            follow[sym] = [expr[ind+1]]
-    follow[sym] = list(set(follow[sym]))
-    return follow[sym]
+                    frt = getFirst(expr[ind+1])
+                    while "~" in frt:
+                        frt.remove("~")
+                        ind += 1
+                        if ind+1 == len(expr):
+                            frt += (getFollow(key))
+                        elif ind < len(expr):
+                            frt += (getFirst(expr[ind+1]))
+                    flw += frt
+
+    if sym == "S":
+        flw.append("$")
+    follow[sym] = list(set(flw))
+    return follow[sym][:]
 
 for i in nonTerm:
     getFollow(i)
 
 for i in nonTerm:
-    print(i,"====>")
-    print("First: ", first[i])
-    print("Follow: ",follow[i])
+    print("First: ", i , first[i])
+    print("Follow: ", i ,follow[i])
