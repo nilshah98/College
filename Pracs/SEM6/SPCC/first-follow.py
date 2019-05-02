@@ -1,6 +1,5 @@
 '''
 Grammar =>
-
 S -> aBC | AD | cBD
 A -> pD | Cc | ~
 B -> bC | b
@@ -9,14 +8,14 @@ D -> d
 '''
 
 grammar = {
-"S" : ["aFC","AD","cFD"],
+"S" : ["aBC","AD","cBD"],
 "A" : ["pD","Cc","~"],
-"F" : ["bC","b"],
+"B" : ["bC","b"],
 "C" : ["e","fD","~"],
 "D" : ["d"]
 }
 
-nonTerm = ["S","A","F","C","D"]
+nonTerm = ["S","A","B","C","D"]
 Term = ["a","c","p","c","b","e","f","d"]
 
 first = {}
