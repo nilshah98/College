@@ -1,0 +1,26 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1564870009100.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3691430812",
+    "id" : "D008CDC0",
+    "lastKnownWriteTime" : 1564874884,
+    "last_content_update" : 1564874884157,
+    "path" : "C:/Users/Student/1611105/College/Pracs/SEM7/DWM/Exp1/Exp1.R",
+    "project_path" : "Exp1.R",
+    "properties" : {
+        "cursorPosition" : "37,23",
+        "scrollLine" : "19",
+        "tempName" : "Untitled1"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
